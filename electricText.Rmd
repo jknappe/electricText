@@ -1,0 +1,89 @@
+---
+title: "Electric Text"
+author: "[Jan Knappe](www.janknappe.com)"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    highlight: tango
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Loadf packages
+```{r loadPackages, include = TRUE, echo = TRUE, warning=FALSE, message = FALSE}
+library(tidyverse)
+library(tidytext)
+library(geniusr)
+```
+
+We will scrage lyrics data from genius.com.
+Need to sign up.
+
+Go to https://docs.genius.com/
+
+You need to create an API Client to start using the Genius API. It says " create an API client for your application. This will provide you with a client_id and a client_secret that you'll use to identify your application to Genius."
+
+Interactively explore API endpoints by connecting your Genius account to this page.
+
+Genius API Docs
+wants permission to: create annotations and access your profile  
+Genius uses OAuth2 for authentication. All API requests must be authenticated. 
+
+![Authorizing the Genius.com API](img/genius-api.jpg)
+
+message: "You've linked your Genius account with this site. You're on your way to building something great!"
+
+From the dosumentation 
+
+
+"Using An Access Token
+
+To make authenticated requests with an access token, include it in an HTTP Authorization header preceded by the word "Bearer" and a space. For example, the value of the header could be Bearer 1234tokentokentoken.
+
+Passing the token in the authorization header is the preferred way to authenticate API requests. However, the API also supports providing the token as the access_token query parameter of a GET request or element of a POST body.
+
+GET /some-endpoint HTTP/1.1
+User-Agent: CompuServe Classic/1.22
+Accept: application/json
+Host: api.genius.com
+Authorization: Bearer ACCESS_TOKEN
+
+"
+
+"Response Format
+
+All Genius API responses are JSON. Every JSON response has a meta field with a status value that is an integer representation of the HTTP status code for the response.
+
+For successful requests, there is also a top-level response field which will be a nested object. For example, a request for details about annotations on a web page:"
+
+"Songs
+A song is a document hosted on Genius. It's usually music lyrics.
+
+Data for a song includes details about the document itself and information about all the referents that are attached to it, including the text to which they refer.
+
+GET /songs/:id"
+
+"Artists
+An artist is how Genius represents the creator of one or more songs (or other documents hosted on Genius). It's usually a musician or group of musicians.
+
+GET /artists/:id"
+
+
+R library to access genius data: https://github.com/ewenme/geniusr
+
+it says: 
+"Create a Genius API client
+Generate a client access token from your API Clients page
+Set your credentials in the System Environment variable GENIUS_API_TOKEN by calling the genius_token() function and entering your Genius Client Access Token when prompted."
+
+Once you have the genius token, run `genius_token()` and if it is not set, you will be prompted to enter the token that you just created. This will set the System Environment variable GENIUS_API_TOKEN and should normally only be needed to run once.
+
+
+
+```{r sessionInfo, include = TRUE, echo = TRUE}
+sessionInfo()
+```
+
